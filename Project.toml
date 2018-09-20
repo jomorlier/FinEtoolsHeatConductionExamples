@@ -1,0 +1,6 @@
+authors = ["Petr <pkrysl@ucsd.edu>"]
+name = "FinEtoolsHeatConductionExamples"
+uuid = "9a1154b0-bc76-11e8-2723-c73e44fdbaa3"
+version = "0.1.0"
+
+[deps]
