@@ -36,7 +36,7 @@ function heat_juafem_example()
     t1 = time()
     
     m = MatHeatDiff(thermal_conductivity)
-    femm = FEMMHeatDiff(IntegData(fes, GaussRule(2, 2)), m)
+    femm = FEMMHeatDiff(IntegDomain(fes, GaussRule(2, 2)), m)
     
     println("Conductivity")
     @time K=conductivity(femm, geom, Temp)

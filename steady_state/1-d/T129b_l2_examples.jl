@@ -19,7 +19,7 @@ function T129b_l2_uq()
     
     essential1 = FDataDict("node_list"=>vcat(l1, l2), "temperature"=> 0.0);
     material = MatHeatDiff(kappa)
-    femm = FEMMHeatDiff(IntegData(fes, GaussRule(1, 2), crosssection), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, GaussRule(1, 2), crosssection), material)
     region1 = FDataDict("femm"=>femm, "Q"=>Q)
     # Make model data
     modeldata= FDataDict("fens"=> fens,    "regions"=>[region1],    "essential_bcs"=>[essential1]);
@@ -84,7 +84,7 @@ function T129b_l2_uq_algo()
     
     essential1 = FDataDict("node_list"=>vcat(l1, l2), "temperature"=> 0.0);
     material = MatHeatDiff(kappa)
-    femm = FEMMHeatDiff(IntegData(fes, GaussRule(1, 2), crosssection), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, GaussRule(1, 2), crosssection), material)
     region1 = FDataDict("femm"=>femm, "Q"=>Q)
     # Make model data
     modeldata= FDataDict("fens"=> fens,    "regions"=>[region1],    "essential_bcs"=>[essential1]);

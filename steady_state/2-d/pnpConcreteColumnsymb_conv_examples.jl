@@ -33,8 +33,8 @@ function pnpConcreteColumnsymb_conv()
     
     bfes = FESetL2([4 5]);
     
-    cfemm = FEMMHeatDiffSurf(IntegData(bfes, GaussRule(1, 2), Dz), h)
-    femm = FEMMHeatDiff(IntegData(fes, TriRule(1), Dz), m)
+    cfemm = FEMMHeatDiffSurf(IntegDomain(bfes, GaussRule(1, 2), Dz), h)
+    femm = FEMMHeatDiff(IntegDomain(fes, TriRule(1), Dz), m)
     fi = ForceIntensity(FFlt[Q]);
     F1 = distribloads(femm, geom, Temp, fi, 3);
     K = conductivity(femm, geom, Temp)

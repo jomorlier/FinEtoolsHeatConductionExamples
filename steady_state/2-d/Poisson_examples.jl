@@ -42,7 +42,7 @@ function Poisson_FE_example()
     
     material = MatHeatDiff(thermal_conductivity)
     
-    femm = FEMMHeatDiff(IntegData(fes, TriRule(1)), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, TriRule(1)), material)
     
     
     println("Conductivity")
@@ -55,7 +55,7 @@ function Poisson_FE_example()
     # end
     # fi = ForceIntensity(FFlt, getsource!);# alternative  specification
     fi = ForceIntensity(FFlt[Q]);
-    @time F1 = distribloads(FEMMBase(IntegData(fes, TriRule(1))), geom, Temp, fi, 3);
+    @time F1 = distribloads(FEMMBase(IntegDomain(fes, TriRule(1))), geom, Temp, fi, 3);
     
     println("Factorization")
     @time K = cholesky(K)
@@ -109,7 +109,7 @@ function Poisson_FE_example_algo()
     essential1 = FDataDict("node_list"=>vcat(l1, l2, l3, l4),
     "temperature"=>truetempf);
     material = MatHeatDiff(thermal_conductivity)
-    femm = FEMMHeatDiff(IntegData(fes, TriRule(1)), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, TriRule(1)), material)
     region1 = FDataDict("femm"=>femm, "Q"=>magn)
     # Make model data
     modeldata= FDataDict("fens"=> fens,
@@ -182,7 +182,7 @@ function Poisson_FE_example_csys_1()
     
     material = MatHeatDiff(thermal_conductivity)
     
-    femm = FEMMHeatDiff(IntegData(fes, TriRule(1)), CSys(Rm), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, TriRule(1)), CSys(Rm), material)
     
     println("Conductivity")
     @time K = conductivity(femm, geom, Temp)
@@ -258,7 +258,7 @@ function Poisson_FE_Q4_example()
     t1 = time()
     
     m = MatHeatDiff(thermal_conductivity)
-    femm = FEMMHeatDiff(IntegData(fes, GaussRule(2, 2)), m)
+    femm = FEMMHeatDiff(IntegDomain(fes, GaussRule(2, 2)), m)
     
     println("Conductivity")
     @time K=conductivity(femm, geom, Temp)

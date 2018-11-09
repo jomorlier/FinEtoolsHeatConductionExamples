@@ -76,8 +76,8 @@ function actuator2()
     coldmater = MatHeatDiff(kappa)
     cl =  selectelem(fens, fes, box=[x0,x2,y0,y2,z0,z1],inflate = t/100);
     
-    hotfemm  =  FEMMHeatDiff(IntegData(subset(fes,cl), GaussRule(3, 3)), hotmater)
-    coldfemm  = FEMMHeatDiff(IntegData(subset(fes,setdiff(collect(1:count(fes)), cl)),  GaussRule(3, 3)), coldmater)
+    hotfemm  =  FEMMHeatDiff(IntegDomain(subset(fes,cl), GaussRule(3, 3)), hotmater)
+    coldfemm  = FEMMHeatDiff(IntegDomain(subset(fes,setdiff(collect(1:count(fes)), cl)),  GaussRule(3, 3)), coldmater)
     geom = NodalField(fens.xyz)
     Temp = NodalField(zeros(size(fens.xyz,1),1))
     fenids = selectnode(fens, box=[x0,x4,y0,y0,z0,z3], inflate=t/1000) ; # fixed temperature on substrate

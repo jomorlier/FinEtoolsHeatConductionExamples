@@ -37,17 +37,17 @@ function annulus_Q4_example()
     
     
     material = MatHeatDiff(kappa)
-    femm = FEMMHeatDiff(IntegData(fes,  GaussRule(2, 2)),  material)
+    femm = FEMMHeatDiff(IntegDomain(fes,  GaussRule(2, 2)),  material)
     
     @time K = conductivity(femm,  geom,  Temp)
     
     l1 = selectelem(fens, edge_fes, box=[-1.1*rex -0.9*rex -0.5*rex 0.5*rex]);
-    el1femm = FEMMBase(IntegData(subset(edge_fes, l1),  GaussRule(1, 2)))
+    el1femm = FEMMBase(IntegDomain(subset(edge_fes, l1),  GaussRule(1, 2)))
     fi = ForceIntensity(FFlt[-magn]);#entering the domain
     @time F1 = (-1.0)* distribloads(el1femm,  geom,  Temp,  fi,  2);
     
     l1 = selectelem(fens, edge_fes, box=[0.9*rex 1.1*rex -0.5*rex 0.5*rex]);
-    el1femm =  FEMMBase(IntegData(subset(edge_fes, l1),  GaussRule(1, 2)))
+    el1femm =  FEMMBase(IntegDomain(subset(edge_fes, l1),  GaussRule(1, 2)))
     fi = ForceIntensity(FFlt[+magn]);#leaving the domain
     @time F2 = (-1.0)* distribloads(el1femm,  geom,  Temp,  fi,  2);
     
@@ -103,16 +103,16 @@ function annulus_Q4_example_algo()
     # The flux boundary condition is applied at two pieces of surface
     # Side 1
     l1 = selectelem(fens, edge_fes, box=[-1.1*rex -0.9*rex -0.5*rex 0.5*rex]);
-    el1femm = FEMMBase(IntegData(subset(edge_fes, l1),  GaussRule(1, 2)))
+    el1femm = FEMMBase(IntegDomain(subset(edge_fes, l1),  GaussRule(1, 2)))
     fi = ForceIntensity(FFlt[-magn]);#entering the domain
     flux1 = FDataDict("femm"=>el1femm, "normal_flux"=>-magn) # entering the domain
     # Side 2
     l2=selectelem(fens,edge_fes,box=[0.9*rex 1.1*rex -0.5*rex 0.5*rex]);
-    el2femm = FEMMBase(IntegData(subset(edge_fes, l2),  GaussRule(1, 2)))
+    el2femm = FEMMBase(IntegDomain(subset(edge_fes, l2),  GaussRule(1, 2)))
     flux2 = FDataDict("femm"=>el2femm, "normal_flux"=>+magn) # leaving the domain
     
     material = MatHeatDiff(kappa)
-    femm = FEMMHeatDiff(IntegData(fes,  GaussRule(2, 2)),  material)
+    femm = FEMMHeatDiff(IntegDomain(fes,  GaussRule(2, 2)),  material)
     region1 = FDataDict("femm"=>femm)
     
     # Make model data
@@ -170,17 +170,17 @@ function annulus_Q8_example()
     
     
     material = MatHeatDiff(kappa)
-    femm = FEMMHeatDiff(IntegData(fes,  GaussRule(2, 3)),  material)
+    femm = FEMMHeatDiff(IntegDomain(fes,  GaussRule(2, 3)),  material)
     
     @time K = conductivity(femm,  geom,  Temp)
     
     l1 = selectelem(fens, edge_fes, box=[-1.1*rex -0.9*rex -0.5*rex 0.5*rex]);
-    el1femm = FEMMBase(IntegData(subset(edge_fes, l1),  GaussRule(1, 2)))
+    el1femm = FEMMBase(IntegDomain(subset(edge_fes, l1),  GaussRule(1, 2)))
     fi = ForceIntensity(FFlt[-magn]);#entering the domain
     @time F1 = (-1.0)* distribloads(el1femm,  geom,  Temp,  fi,  2);
     
     l1 = selectelem(fens, edge_fes, box=[0.9*rex 1.1*rex -0.5*rex 0.5*rex]);
-    el1femm =  FEMMBase(IntegData(subset(edge_fes, l1),  GaussRule(1, 2)))
+    el1femm =  FEMMBase(IntegDomain(subset(edge_fes, l1),  GaussRule(1, 2)))
     fi = ForceIntensity(FFlt[+magn]);#leaving the domain
     @time F2 = (-1.0)* distribloads(el1femm,  geom,  Temp,  fi,  2);
     
@@ -232,15 +232,15 @@ function ebc_annulus_Q4_algo()
     # The convection boundary condition is applied at two pieces of surface
     # Side 1
     l1 = selectelem(fens, edge_fes, box=[-1.1*rex -0.9*rex -0.5*rex 0.5*rex]);
-    el1femm = FEMMHeatDiffSurf(IntegData(subset(edge_fes, l1),  GaussRule(1, 2)), hconv1)
+    el1femm = FEMMHeatDiffSurf(IntegDomain(subset(edge_fes, l1),  GaussRule(1, 2)), hconv1)
     cbc1 = FDataDict("femm"=>el1femm, "ambient_temperature"=>te1)
     # Side 2
     l2=selectelem(fens,edge_fes,box=[0.9*rex 1.1*rex -0.5*rex 0.5*rex]);
-    el2femm = FEMMHeatDiffSurf(IntegData(subset(edge_fes, l2),  GaussRule(1, 2)), hconv2)
+    el2femm = FEMMHeatDiffSurf(IntegDomain(subset(edge_fes, l2),  GaussRule(1, 2)), hconv2)
     cbc2 = FDataDict("femm"=>el2femm, "ambient_temperature"=>te2)
     
     material = MatHeatDiff(kappa)
-    femm = FEMMHeatDiff(IntegData(fes,  GaussRule(2, 2)),  material)
+    femm = FEMMHeatDiff(IntegDomain(fes,  GaussRule(2, 2)),  material)
     region1 = FDataDict("femm"=>femm)
     
     # Make model data

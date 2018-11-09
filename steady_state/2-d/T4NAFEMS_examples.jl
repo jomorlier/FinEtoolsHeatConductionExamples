@@ -81,12 +81,12 @@ function T4NAFEMS_T3_algo()
         # accurate.
         l2 = selectelem(fens, bfes; box=[Width Width  0.0 Height], inflate =tolerance)
         l3 = selectelem(fens, bfes; box=[0.0 Width Height Height], inflate =tolerance)
-        cfemm = FEMMHeatDiffSurf(IntegData(subset(bfes,vcat(l2,l3)),
+        cfemm = FEMMHeatDiffSurf(IntegDomain(subset(bfes,vcat(l2,l3)),
         GaussRule(1, 3), Thickness), h)
         convection1 = FDataDict("femm"=>cfemm, "ambient_temperature"=>0.);
         
         # The interior
-        femm = FEMMHeatDiff(IntegData(fes, TriRule(3), Thickness), m)
+        femm = FEMMHeatDiff(IntegDomain(fes, TriRule(3), Thickness), m)
         region1 = FDataDict("femm"=>femm)
         
         # Make the model data
@@ -249,12 +249,12 @@ function T4NAFEMS_T6_algo()
         # accurate.
         l2 = selectelem(fens, bfes; box=[Width Width  0.0 Height], inflate =tolerance)
         l3 = selectelem(fens, bfes; box=[0.0 Width Height Height], inflate =tolerance)
-        cfemm = FEMMHeatDiffSurf(IntegData(subset(bfes,vcat(l2,l3)),
+        cfemm = FEMMHeatDiffSurf(IntegDomain(subset(bfes,vcat(l2,l3)),
         GaussRule(1, 3), Thickness), h)
         convection1 = FDataDict("femm"=>cfemm, "ambient_temperature"=>0.);
         
         # The interior
-        femm = FEMMHeatDiff(IntegData(fes, TriRule(3), Thickness), m)
+        femm = FEMMHeatDiff(IntegDomain(fes, TriRule(3), Thickness), m)
         region1 = FDataDict("femm"=>femm)
         
         # Make the model data

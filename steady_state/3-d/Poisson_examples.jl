@@ -48,7 +48,7 @@ function Poisson_FE_H20_example()
     
     material = MatHeatDiff(thermal_conductivity)
     
-    femm = FEMMHeatDiff(IntegData(fes, GaussRule(3, 3)), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, GaussRule(3, 3)), material)
     
     
     println("Conductivity")
@@ -129,7 +129,7 @@ function Poisson_FE_T10_example()
     
     material = MatHeatDiff(thermal_conductivity)
     
-    femm = FEMMHeatDiff(IntegData(fes, GaussRule(3, 3)), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, GaussRule(3, 3)), material)
     
     
     println("Conductivity")
@@ -209,7 +209,7 @@ function Poisson_FE_T4_example()
     
     material = MatHeatDiff(thermal_conductivity)
     
-    femm = FEMMHeatDiff(IntegData(fes, TetRule(1)), material)
+    femm = FEMMHeatDiff(IntegDomain(fes, TetRule(1)), material)
     
     
     println("Conductivity")
