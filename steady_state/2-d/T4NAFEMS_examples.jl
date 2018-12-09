@@ -218,7 +218,7 @@ function T4NAFEMS_T6_algo()
     
     modeldata = nothing
     resultsTempA = FFlt[]; params = FFlt[];
-    for nref = 1:5
+    for nref = 3:7
         t0 = time()
         
         # The mesh is created from two triangles to begin with
@@ -283,9 +283,10 @@ function T4NAFEMS_T6_algo()
     
     ##
     # These are the computed results for the temperature at point A:
+    println("$( params  )")
     println("$( resultsTempA  )")
     
-    solnestim, beta, c, residual = FinEtools.AlgoBaseModule.richextrapol(resultsTempA, params)
+    solnestim, beta, c, residual = FinEtools.AlgoBaseModule.richextrapol(resultsTempA[end-2:end], params[end-2:end])
     println("Solution estimate = $(solnestim)")
     println("Convergence rate estimate  = $(beta )")
     
@@ -293,9 +294,9 @@ function T4NAFEMS_T6_algo()
     geom = modeldata["geom"]
     Temp = modeldata["temp"]
     regions = modeldata["regions"]
-    vtkexportmesh("T4NAFEMS--T6.vtk", connasarray(regions[1]["femm"].integdata.fes), [geom.values Temp.values/100], FinEtools.MeshExportModule.T6;
+    vtkexportmesh("T4NAFEMS--T6.vtk", connasarray(regions[1]["femm"].integdomain.fes), [geom.values Temp.values/100], FinEtools.MeshExportModule.T6;
     scalars=[("Temperature", Temp.values)])
-    vtkexportmesh("T4NAFEMS--T6--base.vtk", connasarray(regions[1]["femm"].integdata.fes), [geom.values 0.0*Temp.values/100], FinEtools.MeshExportModule.T6)
+    vtkexportmesh("T4NAFEMS--T6--base.vtk", connasarray(regions[1]["femm"].integdomain.fes), [geom.values 0.0*Temp.values/100], FinEtools.MeshExportModule.T6)
     
     # ##
     # # Richardson extrapolation is used to estimate the true solution from the
